@@ -1,0 +1,2795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grammar Buddy — Simple Present & Simple Past</title>
+  <style>
+    :root {
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --ink-main: #0f172a;
+      --ink-muted: #475569;
+      --border-soft: #e2e8f0;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --shadow-card: 0 8px 24px rgba(15, 23, 42, 0.06);
+
+      --blue: #0ea5e9;
+      --blue-dark: #0284c7;
+      --blue-soft: #e0f2fe;
+
+      --orange: #f97316;
+      --orange-dark: #ea580c;
+      --orange-soft: #ffedd5;
+
+      --green: #16a34a;
+      --green-dark: #15803d;
+      --green-soft: #dcfce7;
+
+      --purple: #8b5cf6;
+      --purple-dark: #6d28d9;
+      --purple-soft: #ede9fe;
+
+      --pink: #ec4899;
+      --pink-dark: #be185d;
+      --pink-soft: #fce7f3;
+
+      --cyan: #0891b2;
+      --cyan-dark: #0e7490;
+      --cyan-soft: #cffafe;
+
+      --red: #ef4444;
+      --amber: #f59e0b;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg-page);
+      color: var(--ink-main);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family: inherit;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--blue-dark);
+      outline-offset: 2px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Top Navigation Bar */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(8px);
+      border-bottom: 1.5px solid var(--border-soft);
+    }
+
+    .topbar-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand-font {
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-size: 1.25rem;
+      color: #0f172a;
+    }
+
+    .brand-mascot {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: #fef08a;
+      border: 2px solid #facc15;
+      display: grid;
+      place-items: center;
+      font-size: 1.25rem;
+    }
+
+    .home-link,
+    .nav-btn {
+      min-height: 40px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      color: var(--ink-main);
+      font-weight: 700;
+      font-size: 0.92rem;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .home-link:hover,
+    .nav-btn:hover {
+      background: #f1f5f9;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .streak-pill {
+      background: #ffedd5;
+      border: 1.5px solid #fdba74;
+      color: #9a3412;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 6px 12px;
+      border-radius: 999px;
+    }
+
+    .ask-buddy-trigger {
+      background: #ede9fe;
+      border-color: #c4b5fd;
+      color: #4c1d95;
+    }
+
+    .ask-buddy-trigger:hover {
+      background: #ddd6fe;
+    }
+
+    /* Main Container & Hero */
+    .main-container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px 18px 48px;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, #e0f2fe 0%, #f0fdf4 55%, #fef9c3 100%);
+      border: 2px solid #bae6fd;
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: #0f172a;
+    }
+
+    .hero-subtitle {
+      margin: 6px 0 0;
+      font-size: 1.05rem;
+      color: var(--ink-muted);
+      font-weight: 500;
+    }
+
+    .school-tag {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #0369a1;
+      background: #e0f2fe;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    /* Home 6-Card Grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    @media (min-width: 640px) {
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 960px) {
+      .feature-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      border: 1.5px solid var(--border-soft);
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 7px;
+      background: var(--accent, var(--blue));
+    }
+
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.1);
+    }
+
+    .card-icon-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: var(--accent-soft, var(--blue-soft));
+      color: var(--accent, var(--blue));
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .card-title {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .card-desc {
+      margin: 4px 0 0;
+      color: var(--ink-muted);
+      font-size: 0.96rem;
+      line-height: 1.45;
+    }
+
+    .card-cta {
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--accent-dark, var(--blue-dark));
+    }
+
+    /* Tool Panels & Shared Controls */
+    .tool-shell {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      border: 1.5px solid var(--border-soft);
+      box-shadow: var(--shadow-card);
+    }
+
+    .tool-header {
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .tool-header h2 {
+      margin: 0;
+      font-size: 1.75rem;
+    }
+
+    .tool-header p {
+      margin: 6px 0 0;
+      color: var(--ink-muted);
+      font-size: 1rem;
+    }
+
+    .field-group {
+      margin-bottom: 16px;
+    }
+
+    .field-label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 0.98rem;
+    }
+
+    .input-control,
+    .select-control,
+    .textarea-control {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      border: 2px solid #cbd5e1;
+      font-size: 1rem;
+      background: #ffffff;
+      color: var(--ink-main);
+    }
+
+    .textarea-control {
+      min-height: 108px;
+      resize: vertical;
+    }
+
+    .primary-btn {
+      min-height: 48px;
+      padding: 12px 22px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-weight: 800;
+      font-size: 1rem;
+      color: #ffffff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 0 rgba(15, 23, 42, 0.16);
+    }
+
+    .primary-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .btn-blue { background: var(--blue); }
+    .btn-blue:hover:not(:disabled) { background: var(--blue-dark); }
+    .btn-orange { background: var(--orange); }
+    .btn-orange:hover:not(:disabled) { background: var(--orange-dark); }
+    .btn-green { background: var(--green); }
+    .btn-green:hover:not(:disabled) { background: var(--green-dark); }
+    .btn-red { background: var(--red); }
+    .btn-slate { background: #334155; }
+
+    .secondary-btn {
+      min-height: 44px;
+      padding: 9px 16px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      color: var(--ink-main);
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .secondary-btn:hover:not(:disabled) {
+      background: #e2e8f0;
+    }
+
+    .status-banner {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.95rem;
+      border: 1.5px solid transparent;
+    }
+
+    .status-info { background: #eff6ff; border-color: #bfdbfe; color: #1e40af; }
+    .status-warn { background: #fef3c7; border-color: #fde68a; color: #92400e; }
+    .status-error { background: #fee2e2; border-color: #fecaca; color: #991b1b; }
+    .status-ok { background: #dcfce7; border-color: #bbf7d0; color: #166534; }
+
+    /* Buddy Feedback Bubble */
+    .buddy-bubble-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .buddy-avatar {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: #facc15;
+      border: 2px solid #eab308;
+      display: grid;
+      place-items: center;
+      font-size: 1.65rem;
+      flex-shrink: 0;
+    }
+
+    .buddy-bubble {
+      flex: 1;
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-radius: 18px;
+      padding: 16px 18px;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+    }
+
+    .buddy-bubble-title {
+      margin: 0 0 8px;
+      font-size: 1.12rem;
+      font-weight: 800;
+    }
+
+    .dashed-highlight {
+      display: inline-block;
+      background: #fef9c3;
+      border: 2px dashed #eab308;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 1.08rem;
+      margin: 6px 0;
+    }
+
+    .mark-changed {
+      background: #fef08a;
+      padding: 1px 6px;
+      border-radius: 6px;
+      font-weight: 800;
+    }
+
+    /* Dictionary Table/List */
+    .dict-row {
+      padding: 8px 0;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+    .dict-row:last-child { border-bottom: none; }
+
+    /* Buddy Checker Issue Cards */
+    .issue-card-wrong {
+      background: #fef2f2;
+      border: 2px solid #fecaca;
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-top: 14px;
+    }
+
+    .issue-card-right {
+      background: #f0fdf4;
+      border: 2px solid #bbf7d0;
+      border-radius: 16px;
+      padding: 12px 14px;
+      margin-top: 10px;
+    }
+
+    .wrong-word {
+      background: #fee2e2;
+      color: #991b1b;
+      padding: 1px 6px;
+      border-radius: 6px;
+      font-weight: 800;
+    }
+
+    .right-word {
+      background: #dcfce7;
+      color: #166534;
+      padding: 1px 6px;
+      border-radius: 6px;
+      font-weight: 800;
+    }
+
+    /* Burger Madness Kitchen Theme */
+    .kitchen-shell {
+      background: #fffbeb;
+      border: 2px solid #fde68a;
+      border-radius: var(--radius-lg);
+      padding: 20px;
+    }
+
+    .kitchen-hud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      background: #ffffff;
+      border: 2px solid #fcd34d;
+      border-radius: 16px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+    }
+
+    .kitchen-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    @media (min-width: 820px) {
+      .kitchen-grid {
+        grid-template-columns: 300px 1fr;
+      }
+    }
+
+    .kitchen-map {
+      background: #e0f2fe;
+      border: 2px solid #7dd3fc;
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .level-pill-btn {
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+      border-radius: 12px;
+      border: 1.5px solid #93c5fd;
+      background: #ffffff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .level-pill-btn.active {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0369a1;
+    }
+
+    .level-pill-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      background: #f1f5f9;
+    }
+
+    .order-station {
+      background-color: #ffffff;
+      background-image:
+        linear-gradient(45deg, rgba(251, 191, 36, 0.12) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(251, 191, 36, 0.12) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(251, 191, 36, 0.12) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(251, 191, 36, 0.12) 75%);
+      background-size: 28px 28px;
+      background-position: 0 0, 0 14px, 14px -14px, -14px 0;
+      border: 2px solid #f59e0b;
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .ticket-box {
+      background: #ffffff;
+      border: 2px dashed #d97706;
+      border-radius: 16px;
+      padding: 18px;
+      margin: 14px 0;
+      font-size: 1.22rem;
+      font-weight: 700;
+    }
+
+    .choice-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    @media (max-width: 520px) {
+      .choice-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Tense Showdown Dark Arcade Theme */
+    .arcade-shell {
+      background: #091326;
+      color: #f8fafc;
+      border: 2px solid #22d3ee;
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: 0 12px 32px rgba(2, 6, 23, 0.45);
+    }
+
+    .arcade-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px solid rgba(34, 211, 238, 0.35);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+
+    .arcade-title {
+      margin: 0;
+      color: #22d3ee;
+      font-size: 1.5rem;
+    }
+
+    .arcade-hud-badge {
+      background: rgba(245, 158, 11, 0.18);
+      border: 1.5px solid #fbbf24;
+      color: #fde68a;
+      font-weight: 800;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.92rem;
+    }
+
+    .arcade-arena {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    @media (min-width: 820px) {
+      .arcade-arena {
+        grid-template-columns: 210px 1fr 210px;
+        align-items: stretch;
+      }
+    }
+
+    .arcade-side-btn {
+      min-height: 112px;
+      width: 100%;
+      border-radius: 18px;
+      border: 2px solid #22d3ee;
+      background: #10203d;
+      color: #ffffff;
+      padding: 14px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-weight: 800;
+    }
+
+    .arcade-side-btn:hover:not(:disabled) {
+      background: #17305c;
+      border-color: #fbbf24;
+    }
+
+    .arcade-center {
+      background: #10203d;
+      border: 2px solid rgba(34, 211, 238, 0.5);
+      border-radius: 18px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .arcade-sentence {
+      font-size: clamp(1.15rem, 2.5vw, 1.45rem);
+      font-weight: 700;
+      line-height: 1.5;
+      margin: 12px 0;
+    }
+
+    .arcade-verb-pill {
+      background: #fbbf24;
+      color: #091326;
+      padding: 2px 9px;
+      border-radius: 8px;
+      font-weight: 900;
+    }
+
+    .tilt-meter-track {
+      width: 100%;
+      height: 12px;
+      background: #091326;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid #22d3ee;
+      margin-top: 8px;
+    }
+
+    .tilt-meter-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #22d3ee, #fbbf24);
+      transition: width 0.08s linear;
+    }
+
+    /* Ask Buddy Drawer */
+    .drawer-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      z-index: 60;
+      display: none;
+      justify-content: flex-end;
+    }
+
+    .drawer-backdrop.open {
+      display: flex;
+    }
+
+    .drawer-panel {
+      width: min(440px, 100%);
+      height: 100%;
+      background: #ffffff;
+      padding: 20px;
+      overflow-y: auto;
+      box-shadow: -12px 0 32px rgba(15, 23, 42, 0.18);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .starter-chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .starter-chip {
+      border: 1.5px solid #c4b5fd;
+      background: #f5f3ff;
+      color: #4c1d95;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .helper-note {
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <a href="#/" class="brand-link brand-font" data-route="#/">
+          <span class="brand-mascot" aria-hidden="true">🤖</span>
+          <span>Grammar Buddy</span>
+        </a>
+        <a href="#/" class="home-link" data-route="#/">🏠 Home</a>
+      </div>
+
+      <div class="nav-actions">
+        <span class="streak-pill" aria-label="Study streak">🔥 3 DAY STREAK!</span>
+        <button type="button" id="askBuddyOpenBtn" class="nav-btn ask-buddy-trigger" aria-haspopup="dialog" aria-controls="askBuddyDrawer">
+          💡 Ask Buddy
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="appRoot" class="main-container" tabindex="-1">
+    <div id="liveAnnouncer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+    <div id="viewMount"></div>
+  </main>
+
+  <!-- Ask Buddy Accessible Drawer -->
+  <div id="askBuddyDrawer" class="drawer-backdrop" role="dialog" aria-modal="true" aria-labelledby="askBuddyTitle">
+    <div class="drawer-panel">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
+        <div>
+          <h2 id="askBuddyTitle" style="margin:0;font-size:1.35rem;">💡 Ask Buddy</h2>
+          <div id="askBuddyModeBadge" class="helper-note" style="font-weight:700;color:#4c1d95;">Mode: Local Hint Engine (Offline Ready)</div>
+        </div>
+        <button type="button" id="askBuddyCloseBtn" class="secondary-btn" aria-label="Close Ask Buddy">✕ Close</button>
+      </div>
+
+      <p style="margin:0;font-size:0.94rem;color:var(--ink-muted);">
+        Ask about Simple Present, Simple Past, <strong>-s/-es/-ies</strong> endings, <strong>-ed</strong> verbs, irregular verbs, or paste a practice sentence for a clue first!
+      </p>
+
+      <div>
+        <div style="font-size:0.84rem;font-weight:800;margin-bottom:6px;">Starter questions:</div>
+        <div class="starter-chip-row">
+          <button type="button" class="starter-chip" data-starter="When do I add -s?">When do I add -s?</button>
+          <button type="button" class="starter-chip" data-starter="How do I know if a sentence is in the past?">How do I know if a sentence is in the past?</button>
+          <button type="button" class="starter-chip" data-starter="He walk to school every day">He walk to school every day</button>
+          <button type="button" class="starter-chip" data-starter="Tell me about irregular past verbs">Irregular past verbs</button>
+        </div>
+      </div>
+
+      <form id="askBuddyForm">
+        <label for="askBuddyInput" class="field-label">Your question or practice sentence</label>
+        <input id="askBuddyInput" type="text" class="input-control" maxlength="240" placeholder="Example: When do I add -s?" />
+        <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;">
+          <button type="submit" class="primary-btn btn-blue">Get Clue / Help</button>
+          <button type="button" id="askBuddyRevealBtn" class="secondary-btn" style="display:none;">Show Example Answer</button>
+        </div>
+      </form>
+
+      <div id="askBuddyStatus" class="status-banner status-info" role="status">
+        Type a question or pick a starter above to get a helpful clue.
+      </div>
+
+      <div id="askBuddyResponseCard" class="buddy-bubble" style="display:none;">
+        <div id="askBuddyResponseHeading" class="buddy-bubble-title">Buddy's Clue</div>
+        <div id="askBuddyResponseText" style="line-height:1.55;"></div>
+        <div id="askBuddyExampleBox" style="display:none;margin-top:10px;padding:10px 12px;border-radius:12px;background:#f0fdf4;border:1.5px solid #bbf7d0;color:#166534;font-weight:700;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/vocab.js"></script>
+  <script src="js/verbs.js"></script>
+  <script src="js/checker-rules.js"></script>
+  <script src="js/games-data.js"></script>
+  <script>
+    (function () {
+      const VOCAB = window.GRAMMAR_BUDDY_VOCAB || [];
+      const VERBS = window.GRAMMAR_BUDDY_VERBS || [];
+      const CHECKER_RULES = window.GRAMMAR_BUDDY_CHECKER_RULES || [];
+      const BURGER_LEVELS = window.GRAMMAR_BUDDY_BURGER_LEVELS || {};
+      const SHOWDOWN_BANK = window.GRAMMAR_BUDDY_SHOWDOWN_BANK || [];
+
+      const CONFIG = {
+        translateMaxChars: 300,
+        scannerMaxBytes: 3 * 1024 * 1024,
+        burgerCorrectGold: 10,
+        burgerStartHealth: 3,
+        burgerSpeedSeconds: 15,
+        showdownRoundSize: 6,
+        tiltThresholdDeg: 15,
+        tiltHoldMs: 500,
+        serverApiBase: ""
+      };
+
+      const FEATURES = [
+        {
+          id: "buddy-translate",
+          route: "#/buddy-translate",
+          name: "Buddy Translate",
+          desc: "Turn a phrase from your home language into English.",
+          icon: "🌐",
+          accent: "#0ea5e9",
+          accentSoft: "#e0f2fe",
+          accentDark: "#0284c7"
+        },
+        {
+          id: "dictionary",
+          route: "#/dictionary",
+          name: "Dictionary",
+          desc: "Look up an action word and its verb forms.",
+          icon: "📖",
+          accent: "#f97316",
+          accentSoft: "#ffedd5",
+          accentDark: "#ea580c"
+        },
+        {
+          id: "tense-converter",
+          route: "#/tense-converter",
+          name: "Tense Converter",
+          desc: "Change a verb or sentence from present to past, or past to present.",
+          icon: "⏳",
+          accent: "#16a34a",
+          accentSoft: "#dcfce7",
+          accentDark: "#15803d"
+        },
+        {
+          id: "buddy-checker",
+          route: "#/buddy-checker",
+          name: "Buddy Checker",
+          desc: "Get hints to improve your writing.",
+          icon: "✅",
+          accent: "#8b5cf6",
+          accentSoft: "#ede9fe",
+          accentDark: "#6d28d9"
+        },
+        {
+          id: "burger-madness",
+          route: "#/burger-madness",
+          name: "Burger Madness",
+          desc: "Check the verbs before you serve each order.",
+          icon: "🍔",
+          accent: "#ec4899",
+          accentSoft: "#fce7f3",
+          accentDark: "#be185d"
+        },
+        {
+          id: "tense-showdown",
+          route: "#/tense-showdown",
+          name: "Tense Showdown",
+          desc: "Decide whether each sentence is present or past.",
+          icon: "⚔️",
+          accent: "#0891b2",
+          accentSoft: "#cffafe",
+          accentDark: "#0e7490"
+        }
+      ];
+
+      function announce(msg) {
+        const el = document.getElementById("liveAnnouncer");
+        if (!el) return;
+        el.textContent = "";
+        requestAnimationFrame(() => {
+          el.textContent = msg;
+        });
+      }
+
+      function setStatus(el, msg, type = "info") {
+        if (!el) return;
+        el.className = "status-banner status-" + type;
+        el.textContent = msg;
+        announce(msg);
+      }
+
+      function escapeHtml(str) {
+        return String(str ?? "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function highlightPhrase(fullText, targetPhrase, highlightClass) {
+        const safeFull = escapeHtml(fullText);
+        if (!targetPhrase) return safeFull;
+        const idx = fullText.toLowerCase().indexOf(targetPhrase.toLowerCase());
+        if (idx === -1) return safeFull;
+        const before = escapeHtml(fullText.slice(0, idx));
+        const match = escapeHtml(fullText.slice(idx, idx + targetPhrase.length));
+        const after = escapeHtml(fullText.slice(idx + targetPhrase.length));
+        return `${before}<span class="${highlightClass}">${match}</span>${after}`;
+      }
+
+      const verbByBase = new Map();
+      const verbsByAnyForm = new Map();
+      VERBS.forEach((v) => {
+        const b = v.base.toLowerCase().trim();
+        verbByBase.set(b, v);
+        [v.base, v.thirdPerson, v.past].forEach((form) => {
+          if (!form) return;
+          form.split("/").forEach((part) => {
+            const clean = part.replace(/I\/he\/she\/it\s+/i, "").replace(/you\/we\/they\s+/i, "").trim().toLowerCase();
+            if (!clean) return;
+            if (!verbsByAnyForm.has(clean)) verbsByAnyForm.set(clean, []);
+            if (!verbsByAnyForm.get(clean).some((item) => item.id === v.id)) {
+              verbsByAnyForm.get(clean).push(v);
+            }
+          });
+        });
+      });
+
+      const msToEnMap = new Map();
+      VOCAB.forEach((entry) => {
+        const msKey = entry.ms.toLowerCase().trim();
+        if (!msToEnMap.has(msKey)) msToEnMap.set(msKey, []);
+        msToEnMap.get(msKey).push(entry);
+      });
+      VERBS.forEach((v) => {
+        const msParts = v.meaningMs.split(/[\/,]/).map((s) => s.trim().toLowerCase()).filter(Boolean);
+        msParts.forEach((msWord) => {
+          if (!msToEnMap.has(msWord)) msToEnMap.set(msWord, []);
+          msToEnMap.get(msWord).push({
+            id: "v-" + v.id,
+            en: `${v.base} (past: ${v.past})`,
+            ms: v.meaningMs
+          });
+        });
+      });
+
+      let activeRouteCleanup = null;
+
+      // ASK BUDDY DRAWER
+      const drawer = document.getElementById("askBuddyDrawer");
+      const openBtn = document.getElementById("askBuddyOpenBtn");
+      const closeBtn = document.getElementById("askBuddyCloseBtn");
+      const askForm = document.getElementById("askBuddyForm");
+      const askInput = document.getElementById("askBuddyInput");
+      const askStatus = document.getElementById("askBuddyStatus");
+      const askRespCard = document.getElementById("askBuddyResponseCard");
+      const askRespHeading = document.getElementById("askBuddyResponseHeading");
+      const askRespText = document.getElementById("askBuddyResponseText");
+      const askExampleBox = document.getElementById("askBuddyExampleBox");
+      const askRevealBtn = document.getElementById("askBuddyRevealBtn");
+      let lastTriggerEl = openBtn;
+      let pendingRevealExample = "";
+      let liveAiAvailable = false;
+
+      async function detectLiveAi() {
+        try {
+          const resp = await fetch(`${CONFIG.serverApiBase}/api/health`, { method: "GET" });
+          if (resp.ok) {
+            const data = await resp.json();
+            liveAiAvailable = Boolean(data.aiConfigured);
+          }
+        } catch (_) {
+          liveAiAvailable = false;
+        }
+        const badge = document.getElementById("askBuddyModeBadge");
+        if (badge) {
+          badge.textContent = liveAiAvailable
+            ? "Mode: Live Server AI + Local Clue Engine"
+            : "Mode: Local Hint Engine (Offline Ready)";
+        }
+      }
+      detectLiveAi();
+
+      function openAskBuddy(triggerEl) {
+        lastTriggerEl = triggerEl || openBtn;
+        drawer.classList.add("open");
+        closeBtn.focus();
+        announce("Ask Buddy panel opened.");
+      }
+
+      function closeAskBuddy() {
+        drawer.classList.remove("open");
+        if (lastTriggerEl && typeof lastTriggerEl.focus === "function") {
+          lastTriggerEl.focus();
+        }
+        announce("Ask Buddy panel closed.");
+      }
+
+      openBtn.addEventListener("click", () => openAskBuddy(openBtn));
+      closeBtn.addEventListener("click", closeAskBuddy);
+      drawer.addEventListener("click", (e) => {
+        if (e.target === drawer) closeAskBuddy();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && drawer.classList.contains("open")) {
+          closeAskBuddy();
+        }
+      });
+
+      document.querySelectorAll(".starter-chip").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          askInput.value = chip.getAttribute("data-starter") || "";
+          askInput.focus();
+        });
+      });
+
+      function generateLocalBuddyResponse(rawText) {
+        const q = rawText.toLowerCase().trim();
+        pendingRevealExample = "";
+        askRevealBtn.style.display = "none";
+        askExampleBox.style.display = "none";
+
+        if (/\bhe walk\b|\bshe walk\b|\bthey goes\b|\bi go to school yesterday\b|\bhe go to school\b/i.test(q)) {
+          if (/\bhe walk\b/i.test(q)) {
+            pendingRevealExample = 'Example revision: "He walks to school every day." (Add -s because "he" is singular and "every day" shows a habit.)';
+            return {
+              heading: "Buddy's First Clue (Try revising first!)",
+              text: "Look at the subject “He”. What usually happens to the verb with he, she, or it in the Simple Present?"
+            };
+          }
+          if (/\byesterday\b/i.test(q) && /\bgo\b/i.test(q)) {
+            pendingRevealExample = 'Example revision: "I went to school yesterday." ("Yesterday" points to the past, and "go" becomes "went".)';
+            return {
+              heading: "Buddy's First Clue (Try revising first!)",
+              text: "Look at the time word “yesterday”. Does that tell you the action happened today or in the past?"
+            };
+          }
+          pendingRevealExample = 'Example revision: Check whether the subject is singular (he/she/it) or plural (they/we/I) and match the verb.';
+          return {
+            heading: "Buddy's First Clue",
+            text: "Circle the subject and any time word (like 'every day' or 'yesterday') first. Which verb form fits that subject and time?"
+          };
+        }
+
+        if (q.includes("-s") || q.includes("he/she/it") || q.includes("habit") || q.includes("every day")) {
+          return {
+            heading: "Simple Present & -s/-es/-ies Clues",
+            text: "Use Simple Present for habits, routines, and facts (clues: every day, every morning, often). For I, you, we, or they, use the base verb (walk, play, eat). For he, she, or it, usually add -s (walks), -es after -ch/-sh/-x/-o (watches, washes, goes), or change consonant + y to -ies (studies, carries)."
+          };
+        }
+
+        if (q.includes("past") || q.includes("yesterday") || q.includes("last week") || q.includes("-ed")) {
+          return {
+            heading: "Simple Past Clues (-ed & Irregulars)",
+            text: "Use Simple Past for completed actions in the past (clues: yesterday, last night, last week, this morning). Regular verbs often add -ed (walked, played), double a short CVC ending (stopped, planned), or change consonant + y to -ied (studied, carried). Irregular verbs change form (go → went, eat → ate, bring → brought, swim → swam)."
+          };
+        }
+
+        if (q.includes("irregular")) {
+          return {
+            heading: "Irregular Past Verbs",
+            text: "Irregular verbs do not simply add -ed in the past tense. Examples from Year 5: go → went, come → came, eat → ate, drink → drank, see → saw, write → wrote, bring → brought, buy → bought, swim → swam, fly → flew."
+          };
+        }
+
+        return {
+          heading: "Grammar Buddy Clue",
+          text: "Check two things in any sentence: (1) Who is doing the action (I/you/we/they vs. he/she/it)? (2) When did it happen (a habit like 'every day' vs. a past time like 'yesterday' or 'last week')?"
+        };
+      }
+
+      askForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const text = askInput.value.trim();
+        if (!text) {
+          askRespCard.style.display = "none";
+          setStatus(askStatus, "Type a short grammar question or sentence first.", "warn");
+          askInput.focus();
+          return;
+        }
+
+        const localRes = generateLocalBuddyResponse(text);
+        if (liveAiAvailable) {
+          setStatus(askStatus, "Buddy is thinking...", "info");
+          try {
+            const resp = await fetch(`${CONFIG.serverApiBase}/api/ask-buddy`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ question: text })
+            });
+            if (resp.ok) {
+              const data = await resp.json();
+              askRespCard.style.display = "block";
+              askRespHeading.textContent = "Buddy's Answer";
+              askRespText.textContent = data.answer || localRes.text;
+              setStatus(askStatus, "Answered using live AI.", "ok");
+              return;
+            }
+          } catch (_) {}
+        }
+
+        askRespCard.style.display = "block";
+        askRespHeading.textContent = localRes.heading;
+        askRespText.textContent = localRes.text;
+        if (pendingRevealExample) {
+          askRevealBtn.style.display = "inline-flex";
+        }
+        setStatus(askStatus, "Local hint ready.", "ok");
+      });
+
+      askRevealBtn.addEventListener("click", () => {
+        if (!pendingRevealExample) return;
+        askExampleBox.textContent = pendingRevealExample;
+        askExampleBox.style.display = "block";
+        announce(pendingRevealExample);
+      });
+
+      // HOME VIEW
+      function renderHomeView(mount) {
+        mount.innerHTML = `
+          <section class="hero-banner" aria-labelledby="homeHeading">
+            <h1 id="homeHeading" class="hero-title">Grammar Buddy</h1>
+            <p class="hero-subtitle">Practise the Simple Present and Simple Past.</p>
+            <span class="school-tag">Year 5 • SK Bukit Lalang, Semporna, Sabah</span>
+          </section>
+
+          <section class="feature-grid" aria-label="Grammar Buddy features">
+            ${FEATURES.map((f) => `
+              <a href="${f.route}" class="feature-card" style="--accent:${f.accent};--accent-soft:${f.accentSoft};--accent-dark:${f.accentDark};">
+                <div>
+                  <div class="card-icon-badge" aria-hidden="true">${f.icon}</div>
+                  <h2 class="card-title" style="margin-top:14px;">${escapeHtml(f.name)}</h2>
+                  <p class="card-desc">${escapeHtml(f.desc)}</p>
+                </div>
+                <div class="card-cta">Open ${escapeHtml(f.name)} →</div>
+              </a>
+            `).join("")}
+          </section>
+        `;
+      }
+
+      // BUDDY TRANSLATE
+      function renderBuddyTranslateView(mount) {
+        let translateRequestSeq = 0;
+
+        const demoExamples = [
+          { match: "saya suka belajar", translation: "I like to learn.", tip: "" },
+          {
+            match: "saya bermain bola sepak setiap hari",
+            translation: "I play football every day.",
+            tip: "“Every day” describes a regular habit, so we use the Simple Present “play”."
+          },
+          {
+            match: "dia pergi ke sekolah semalam",
+            translation: "They/He/She went to school yesterday.",
+            tip: "In Malay, “dia” does not show gender or whether it is he, she, or they, and “semalam” (yesterday) means Simple Past “went”."
+          },
+          {
+            match: "saya berjalan ke sekolah",
+            translation: "I walk to school.",
+            tip: "No time word is given yet—add “every day” for a habit or “yesterday” if it already happened."
+          }
+        ];
+
+        mount.innerHTML = `
+          <section class="tool-shell" style="border-top:7px solid var(--blue);" aria-labelledby="btHeading">
+            <div class="tool-header">
+              <h2 id="btHeading">Buddy Translate</h2>
+              <p>Swap your home language words into clear English!</p>
+            </div>
+
+            <form id="btForm">
+              <div class="field-group">
+                <label for="btLangSelect" class="field-label">Pick your home language</label>
+                <select id="btLangSelect" class="select-control">
+                  <option value="Malay (Bahasa Melayu)" selected>Malay (Bahasa Melayu)</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label for="btPhraseInput" class="field-label">Type your phrase here</label>
+                <textarea id="btPhraseInput" class="textarea-control" maxlength="${CONFIG.translateMaxChars}" placeholder="Saya suka belajar"></textarea>
+                <div class="helper-note">Up to ${CONFIG.translateMaxChars} characters • Demo mode includes common classroom phrases and all 100 vocabulary words.</div>
+              </div>
+
+              <button type="submit" id="btSubmitBtn" class="primary-btn btn-blue">Translate Text! 🚀</button>
+            </form>
+
+            <div id="btStatus" class="status-banner status-info" role="status">
+              Type a Malay phrase and press Translate Text!
+            </div>
+
+            <div id="btResultWrap" class="buddy-bubble-wrap" style="display:none;">
+              <div class="buddy-avatar" aria-hidden="true">🤠</div>
+              <div class="buddy-bubble">
+                <div class="buddy-bubble-title">Found it! In English, we say:</div>
+                <div id="btTranslationOut" class="dashed-highlight"></div>
+                <p style="margin:8px 0 0;font-weight:700;color:#0369a1;">Try saying it out loud.</p>
+                <p id="btTipOut" style="margin:8px 0 0;font-size:0.93rem;color:#334155;"></p>
+                <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #cbd5e1;font-size:0.88rem;color:var(--ink-muted);">
+                  <strong>Your original phrase:</strong> <span id="btOriginalOut"></span>
+                </div>
+              </div>
+            </div>
+          </section>
+        `;
+
+        const form = document.getElementById("btForm");
+        const langSelect = document.getElementById("btLangSelect");
+        const phraseInput = document.getElementById("btPhraseInput");
+        const submitBtn = document.getElementById("btSubmitBtn");
+        const statusEl = document.getElementById("btStatus");
+        const resultWrap = document.getElementById("btResultWrap");
+        const translationOut = document.getElementById("btTranslationOut");
+        const tipOut = document.getElementById("btTipOut");
+        const originalOut = document.getElementById("btOriginalOut");
+
+        function findLocalDemoTranslation(phrase) {
+          const norm = phrase.toLowerCase().replace(/[?.!,]/g, "").trim();
+          const exact = demoExamples.find((ex) => ex.match === norm);
+          if (exact) return { ok: true, translation: exact.translation, tip: exact.tip };
+
+          const vocabHits = msToEnMap.get(norm);
+          if (vocabHits && vocabHits.length > 0) {
+            const enList = vocabHits.map((v) => v.en).join(" / ");
+            return {
+              ok: true,
+              translation: enList,
+              tip: norm === "semalam" || norm === "minggu lepas" || norm === "setiap hari"
+                ? "Time clue word! Notice how time words help you pick Simple Present or Simple Past."
+                : ""
+            };
+          }
+
+          return {
+            ok: false,
+            message: 'Live translation is not connected right now. Try “Saya suka belajar”, “Saya bermain bola sepak setiap hari”, or any word from the 100-word list like “sekolah” or “semalam”.'
+          };
+        }
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const trimmed = phraseInput.value.trim();
+          if (!trimmed) {
+            resultWrap.style.display = "none";
+            setStatus(statusEl, "Type a Malay phrase first.", "warn");
+            phraseInput.focus();
+            return;
+          }
+
+          const seq = ++translateRequestSeq;
+          submitBtn.disabled = true;
+          setStatus(statusEl, "Buddy is translating…", "info");
+
+          try {
+            let result = null;
+            if (liveAiAvailable) {
+              const resp = await fetch(`${CONFIG.serverApiBase}/api/translate`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  sourceLanguage: langSelect.value,
+                  text: trimmed
+                })
+              });
+              if (!resp.ok) {
+                const errData = await resp.json().catch(() => ({}));
+                throw new Error(errData.error || "Translation request failed.");
+              }
+              const data = await resp.json();
+              result = { ok: true, translation: data.translation, tip: data.tip || "" };
+            } else {
+              result = findLocalDemoTranslation(trimmed);
+            }
+
+            if (seq !== translateRequestSeq) return;
+
+            if (!result.ok) {
+              resultWrap.style.display = "none";
+              setStatus(statusEl, result.message, "warn");
+              return;
+            }
+
+            translationOut.textContent = result.translation;
+            tipOut.textContent = result.tip ? `Grammar tip: ${result.tip}` : "";
+            tipOut.style.display = result.tip ? "block" : "none";
+            originalOut.textContent = trimmed;
+            resultWrap.style.display = "flex";
+            setStatus(statusEl, "Translation ready!", "ok");
+          } catch (err) {
+            if (seq !== translateRequestSeq) return;
+            setStatus(statusEl, `Could not translate right now (${err.message}). Your phrase is still here—try again.`, "error");
+          } finally {
+            if (seq === translateRequestSeq) {
+              submitBtn.disabled = false;
+            }
+          }
+        });
+      }
+
+      // DICTIONARY
+      function renderDictionaryView(mount) {
+        mount.innerHTML = `
+          <section class="tool-shell" style="border-top:7px solid var(--orange);" aria-labelledby="dictHeading">
+            <div class="tool-header">
+              <h2 id="dictHeading">Dictionary</h2>
+              <p>Look up an action word and see how it changes.</p>
+            </div>
+
+            <form id="dictForm">
+              <div class="field-group">
+                <label for="dictInput" class="field-label">Type an action word (verb)</label>
+                <input id="dictInput" type="text" class="input-control" placeholder="swim" autocomplete="off" />
+                <div class="helper-note">Try “swim”, “studies”, “brought”, “walk”, or “go”. (All 100 verbs in <code>js/verbs.js</code>)</div>
+              </div>
+              <button type="submit" class="primary-btn btn-orange">Inspect Word! 🔍</button>
+            </form>
+
+            <div id="dictStatus" class="status-banner status-info" role="status">
+              Type a verb and press Enter or Inspect Word!
+            </div>
+
+            <div id="dictResultMount"></div>
+          </section>
+        `;
+
+        const form = document.getElementById("dictForm");
+        const input = document.getElementById("dictInput");
+        const statusEl = document.getElementById("dictStatus");
+        const resultMount = document.getElementById("dictResultMount");
+
+        function renderEntryCard(entry) {
+          const pastDisplay = entry.base === "am / are"
+            ? "I/he/she/it was, you/we/they were"
+            : entry.past;
+          const highlightedExample = highlightPhrase(entry.example, entry.past, "mark-changed");
+
+          return `
+            <div class="buddy-bubble-wrap">
+              <div class="buddy-avatar" aria-hidden="true">🧐</div>
+              <div class="buddy-bubble">
+                <div class="buddy-bubble-title">Word Inspector File: ${escapeHtml(entry.base.toUpperCase())}</div>
+                <div class="dict-row"><strong>What it means:</strong> ${escapeHtml(entry.definition)} <em>(Bahasa Melayu: ${escapeHtml(entry.meaningMs)})</em></div>
+                <div class="dict-row"><strong>Base form:</strong> ${escapeHtml(entry.base)}</div>
+                <div class="dict-row">
+                  <strong>Simple Present:</strong>
+                  <div style="margin-top:4px;">• I/you/we/they ${escapeHtml(entry.base === "am / are" ? "am / are" : entry.base)}</div>
+                  <div>• he/she/it ${escapeHtml(entry.thirdPerson)}</div>
+                </div>
+                <div class="dict-row"><strong>Simple Past:</strong> <span class="dashed-highlight">${escapeHtml(pastDisplay)}</span></div>
+                <div class="dict-row"><strong>Example:</strong> “${highlightedExample}”</div>
+              </div>
+            </div>
+          `;
+        }
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const query = input.value.trim().toLowerCase();
+          resultMount.innerHTML = "";
+
+          if (!query) {
+            setStatus(statusEl, "Type an action word first so Buddy can inspect it.", "warn");
+            input.focus();
+            return;
+          }
+
+          const matches = verbsByAnyForm.get(query) || [];
+          if (matches.length === 1) {
+            resultMount.innerHTML = renderEntryCard(matches[0]);
+            setStatus(statusEl, `Showing Word Inspector File for ${matches[0].base}.`, "ok");
+            return;
+          }
+
+          if (matches.length > 1) {
+            resultMount.innerHTML = matches.map(renderEntryCard).join("");
+            setStatus(statusEl, `Found ${matches.length} matching verb entries for “${query}”.`, "ok");
+            return;
+          }
+
+          const suggestions = VERBS
+            .filter((v) => v.base.startsWith(query.slice(0, 2)) || v.past.startsWith(query.slice(0, 2)))
+            .slice(0, 5)
+            .map((v) => v.base);
+
+          const hintSuffix = suggestions.length
+            ? ` Close verbs in our list: ${suggestions.join(", ")}.`
+            : " Try example verbs like: swim, walk, study, bring, go.";
+
+          setStatus(
+            statusEl,
+            `“${query}” is outside the current dictionary.${hintSuffix}`,
+            "warn"
+          );
+        });
+      }
+
+      // TENSE CONVERTER
+      function renderTenseConverterView(mount) {
+        mount.innerHTML = `
+          <section class="tool-shell" style="border-top:7px solid var(--green);" aria-labelledby="tcHeading">
+            <div class="tool-header">
+              <h2 id="tcHeading">Tense Converter</h2>
+              <p>Travel through time and change your sentence tense!</p>
+            </div>
+
+            <form id="tcForm">
+              <div class="field-group">
+                <label for="tcInput" class="field-label">Write a verb or a short sentence</label>
+                <input id="tcInput" type="text" class="input-control" placeholder="Example: She goes to school." />
+                <div class="helper-note">Supports single verbs, affirmative sentences, negatives (do/does/did not), and yes/no questions (Do/Does/Did...) with familiar Year 5 verbs.</div>
+              </div>
+
+              <div class="field-group">
+                <label for="tcDest" class="field-label">Choose a time machine destination</label>
+                <select id="tcDest" class="select-control">
+                  <option value="present">Turn it into Today (Simple Present)</option>
+                  <option value="past">Turn it into Yesterday (Simple Past)</option>
+                </select>
+                <div class="helper-note">
+                  Simple Present also describes habits or facts. Simple Past can describe any completed past event.
+                </div>
+              </div>
+
+              <button type="submit" class="primary-btn btn-green">Launch Time Shift! ⚡</button>
+            </form>
+
+            <div id="tcStatus" class="status-banner status-info" role="status">
+              Enter a verb or short sentence and choose a destination.
+            </div>
+
+            <div id="tcResultMount"></div>
+          </section>
+        `;
+
+        const form = document.getElementById("tcForm");
+        const input = document.getElementById("tcInput");
+        const destSelect = document.getElementById("tcDest");
+        const statusEl = document.getElementById("tcStatus");
+        const resultMount = document.getElementById("tcResultMount");
+
+        function toPastVerb(word) {
+          const lower = word.toLowerCase();
+          const hit = (verbsByAnyForm.get(lower) || [])[0];
+          if (hit) {
+            if (hit.base === "am / are") return lower === "are" ? "were" : "was";
+            return hit.past;
+          }
+          if (/[^aeiou]y$/i.test(lower)) return lower.slice(0, -1) + "ied";
+          if (/e$/i.test(lower)) return lower + "d";
+          return lower + "ed";
+        }
+
+        function toBaseVerb(word) {
+          const lower = word.toLowerCase();
+          const hit = (verbsByAnyForm.get(lower) || [])[0];
+          if (hit) return hit.base === "am / are" ? "be" : hit.base;
+          if (/ies$/i.test(lower)) return lower.slice(0, -3) + "y";
+          if (/(ches|shes|xes|zes|oes)$/i.test(lower)) return lower.slice(0, -2);
+          if (/s$/i.test(lower) && !/ss$/i.test(lower)) return lower.slice(0, -1);
+          if (/ied$/i.test(lower)) return lower.slice(0, -3) + "y";
+          if (/ed$/i.test(lower)) return lower.slice(0, -2);
+          return lower;
+        }
+
+        function toThirdPersonVerb(base) {
+          const lower = base.toLowerCase();
+          const hit = verbByBase.get(lower);
+          if (hit) return hit.thirdPerson;
+          if (/[^aeiou]y$/i.test(lower)) return lower.slice(0, -1) + "ies";
+          if (/(ch|sh|x|z|o)$/i.test(lower)) return lower + "es";
+          return lower + "s";
+        }
+
+        function isSingularSubject(subj) {
+          const s = subj.toLowerCase().trim();
+          if (["i", "you", "we", "they", "my friends", "the pupils", "the birds"].includes(s)) return false;
+          if (["he", "she", "it", "aina", "ali", "mother", "father", "my brother", "my sister", "the teacher", "the baby"].includes(s)) return true;
+          return !s.endsWith("s");
+        }
+
+        function convertInput(raw, targetTense) {
+          const trimmed = raw.trim();
+          const punctMatch = trimmed.match(/([.!?])$/);
+          const punct = punctMatch ? punctMatch[1] : "";
+          const core = trimmed.replace(/[.!?]+$/, "").trim();
+          const tokens = core.split(/\s+/);
+
+          if (tokens.length === 1) {
+            const w = tokens[0];
+            const found = verbsByAnyForm.get(w.toLowerCase());
+            if (!found || found.length === 0) {
+              return { error: `“${w}” is not in the supported verb list yet. Try a single word or short sentence with a known verb like learn, go, play, or study.` };
+            }
+            const v = found[0];
+            if (targetTense === "past") {
+              if (w.toLowerCase() === v.past.toLowerCase()) {
+                return { unchanged: true, converted: w + punct, reason: `“${w}” is already in the Simple Past.` };
+              }
+              return {
+                converted: v.past + punct,
+                highlight: v.past,
+                reason: `Converted “${w}” to Simple Past “${v.past}”.`
+              };
+            } else {
+              if (w.toLowerCase() === v.base.toLowerCase() || w.toLowerCase() === v.thirdPerson.toLowerCase()) {
+                return { unchanged: true, converted: w + punct, reason: `“${w}” is already in the Simple Present.` };
+              }
+              return {
+                converted: `${v.base} (he/she/it: ${v.thirdPerson})${punct}`,
+                highlight: v.base,
+                reason: `Simple Present uses base form “${v.base}” (I/you/we/they) and “${v.thirdPerson}” (he/she/it).`
+              };
+            }
+          }
+
+          const qMatch = core.match(/^(do|does|did)\s+([a-zA-Z\s']+?)\s+([a-zA-Z]+)(.*)$/i);
+          if (qMatch) {
+            const subj = qMatch[2].trim();
+            const mainVerbBase = toBaseVerb(qMatch[3]);
+            const rest = qMatch[4] || "";
+            const endP = punct || "?";
+            if (targetTense === "past") {
+              if (qMatch[1].toLowerCase() === "did") {
+                return { unchanged: true, converted: `Did ${subj} ${mainVerbBase}${rest}${endP}`, reason: "This question is already in the Simple Past with 'Did'." };
+              }
+              return {
+                converted: `Did ${subj} ${mainVerbBase}${rest}${endP}`,
+                highlight: "Did",
+                reason: "Simple Past questions start with 'Did' followed by the base verb."
+              };
+            } else {
+              const aux = isSingularSubject(subj) ? "Does" : "Do";
+              if (["do", "does"].includes(qMatch[1].toLowerCase())) {
+                return { unchanged: true, converted: `${aux} ${subj} ${mainVerbBase}${rest}${endP}`, reason: "This question is already in the Simple Present." };
+              }
+              return {
+                converted: `${aux} ${subj} ${mainVerbBase}${rest}${endP}`,
+                highlight: aux,
+                reason: `Simple Present questions use “${aux}” for “${subj}” plus the base verb “${mainVerbBase}”.`
+              };
+            }
+          }
+
+          const negMatch = core.match(/^([a-zA-Z\s']+?)\s+(do|does|did)\s+not\s+([a-zA-Z]+)(.*)$/i);
+          if (negMatch) {
+            const subj = negMatch[1].trim();
+            const auxWord = negMatch[2].toLowerCase();
+            const baseV = toBaseVerb(negMatch[3]);
+            const rest = negMatch[4] || "";
+            if (targetTense === "past") {
+              if (auxWord === "did") {
+                return { unchanged: true, converted: `${subj} did not ${baseV}${rest}${punct}`, reason: "This sentence is already in the Simple Past." };
+              }
+              return {
+                converted: `${subj} did not ${baseV}${rest}${punct}`,
+                highlight: "did not",
+                reason: "Changed present negative to Simple Past 'did not' + base verb."
+              };
+            } else {
+              const presAux = isSingularSubject(subj) ? "does not" : "do not";
+              if (auxWord === "do" || auxWord === "does") {
+                return { unchanged: true, converted: `${subj} ${presAux} ${baseV}${rest}${punct}`, reason: "This sentence is already in the Simple Present." };
+              }
+              return {
+                converted: `${subj} ${presAux} ${baseV}${rest}${punct}`,
+                highlight: presAux,
+                reason: `Changed to Simple Present “${presAux}” for “${subj}” + base verb “${baseV}”.`
+              };
+            }
+          }
+
+          const affMatch = core.match(/^([a-zA-Z\s']+?)\s+([a-zA-Z]+)(.*)$/);
+          if (affMatch) {
+            const subj = affMatch[1].trim();
+            const verbWord = affMatch[2];
+            const rest = affMatch[3] || "";
+            const lowerV = verbWord.toLowerCase();
+            const lowerRest = rest.toLowerCase();
+
+            if (["am", "is", "are", "was", "were"].includes(lowerV)) {
+              if (targetTense === "past") {
+                const pastBe = isSingularSubject(subj) ? "was" : "were";
+                if (lowerV === "was" || lowerV === "were") {
+                  return { unchanged: true, converted: `${subj} ${verbWord}${rest}${punct}`, reason: "This sentence already uses a past form of 'be'." };
+                }
+                return {
+                  converted: `${subj} ${pastBe}${rest}${punct}`,
+                  highlight: pastBe,
+                  reason: `“${subj}” takes “${pastBe}” in the Simple Past.`
+                };
+              } else {
+                const presBe = subj.toLowerCase() === "i" ? "am" : (isSingularSubject(subj) ? "is" : "are");
+                if (["am", "is", "are"].includes(lowerV)) {
+                  return { unchanged: true, converted: `${subj} ${verbWord}${rest}${punct}`, reason: "This sentence already uses a present form of 'be'." };
+                }
+                return {
+                  converted: `${subj} ${presBe}${rest}${punct}`,
+                  highlight: presBe,
+                  reason: `“${subj}” takes “${presBe}” in the Simple Present.`
+                };
+              }
+            }
+
+            const verbHits = verbsByAnyForm.get(lowerV);
+            if (!verbHits || verbHits.length === 0) {
+              return {
+                error: `I couldn't recognise “${verbWord}” in that sentence. Try simplifying the sentence or using a supported verb like go, walk, play, study, or bring.`
+              };
+            }
+
+            const vEntry = verbHits[0];
+            const isPastWord = lowerV === vEntry.past.toLowerCase() || /ed$/i.test(lowerV);
+
+            if (targetTense === "past") {
+              const pastForm = toPastVerb(verbWord);
+              if (isPastWord && lowerV === pastForm.toLowerCase()) {
+                return { unchanged: true, converted: `${subj} ${verbWord}${rest}${punct}`, reason: "This sentence is already in the Simple Past." };
+              }
+              return {
+                converted: `${subj} ${pastForm}${rest}${punct}`,
+                highlight: pastForm,
+                reason: `Changed verb to Simple Past “${pastForm}”.`
+              };
+            } else {
+              const presForm = isSingularSubject(subj) ? toThirdPersonVerb(vEntry.base) : vEntry.base;
+              const conflict = /\byesterday\b|\blast week\b|\blast night\b|\blast weekend\b/.test(lowerRest);
+              let conflictNote = "";
+              if (conflict) {
+                const timeMatch = lowerRest.match(/\b(yesterday|last week|last night|last weekend)\b/);
+                const clue = timeMatch ? timeMatch[1] : "a past time word";
+                const routineExample = `${subj} ${toThirdPersonVerb(vEntry.base) === presForm && isSingularSubject(subj) ? presForm : vEntry.base} every day${punct || "."}`;
+                conflictNote = ` Note: “${clue}” is a past time clue—changing the time word (for example: “${routineExample}”) matches present meaning.`;
+              }
+              if (!isPastWord && lowerV === presForm.toLowerCase()) {
+                return { unchanged: true, converted: `${subj} ${verbWord}${rest}${punct}`, reason: "This sentence is already in the Simple Present." + conflictNote };
+              }
+              return {
+                converted: `${subj} ${presForm}${rest}${punct}`,
+                highlight: presForm,
+                reason: `Changed to Simple Present “${presForm}” for “${subj}”.` + conflictNote
+              };
+            }
+          }
+
+          return {
+            error: "Try a short sentence such as “She goes to school.”, “He did not play football.”, “Did she bring her book?”, or “They are happy.”"
+          };
+        }
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const val = input.value.trim();
+          resultMount.innerHTML = "";
+          if (!val) {
+            setStatus(statusEl, "Write a verb or a short sentence first.", "warn");
+            input.focus();
+            return;
+          }
+
+          const res = convertInput(val, destSelect.value);
+          if (res.error) {
+            setStatus(statusEl, res.error, "warn");
+            return;
+          }
+
+          const outHtml = res.highlight
+            ? highlightPhrase(res.converted, res.highlight, "mark-changed")
+            : escapeHtml(res.converted);
+
+          resultMount.innerHTML = `
+            <div class="buddy-bubble-wrap">
+              <div class="buddy-avatar" aria-hidden="true">⏳</div>
+              <div class="buddy-bubble">
+                <div class="buddy-bubble-title">${res.unchanged ? "Already in Target Tense" : "Time Shift Complete!"}</div>
+                <div style="margin-bottom:8px;"><strong>Original:</strong> ${escapeHtml(val)}</div>
+                <div><strong>Converted:</strong> <span class="dashed-highlight">${outHtml}</span></div>
+                <p style="margin:10px 0 0;font-size:0.95rem;color:#334155;">${escapeHtml(res.reason)}</p>
+              </div>
+            </div>
+          `;
+          setStatus(statusEl, res.unchanged ? "No change needed." : "Tense converted!", "ok");
+        });
+      }
+
+      // BUDDY CHECKER + AI WORK SCANNER
+      function renderBuddyCheckerView(mount) {
+        let mode = "type";
+        let scannerFile = null;
+        let scannerPreviewUrl = "";
+
+        const slideDemoText = "Last weekend, I go to my grandmother house with my family. We bring some food.";
+
+        mount.innerHTML = `
+          <section class="tool-shell" style="border-top:7px solid var(--purple);" aria-labelledby="bcHeading">
+            <div class="tool-header">
+              <h2 id="bcHeading">Buddy Checker</h2>
+              <p>Get hints to improve your writing.</p>
+            </div>
+
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px;" role="tablist" aria-label="Buddy Checker modes">
+              <button type="button" id="bcModeTypeBtn" class="primary-btn btn-blue" role="tab" aria-selected="true">✏️ Type My Work</button>
+              <button type="button" id="bcModeScanBtn" class="secondary-btn" role="tab" aria-selected="false">📷 AI Work Scanner</button>
+            </div>
+
+            <div id="bcTypePanel">
+              <div class="field-group">
+                <label for="bcTextArea" class="field-label">Your writing (short sentence or paragraph)</label>
+                <textarea id="bcTextArea" class="textarea-control" placeholder="Example: ${escapeHtml(slideDemoText)}"></textarea>
+                <div style="margin-top:8px;">
+                  <button type="button" id="bcLoadDemoBtn" class="secondary-btn">Load Slide Example</button>
+                </div>
+              </div>
+              <button type="button" id="bcCheckBtn" class="primary-btn btn-blue">Check My Writing</button>
+            </div>
+
+            <div id="bcScanPanel" style="display:none;">
+              <div class="field-group">
+                <label for="bcFileInput" class="field-label">Choose or take a worksheet photo (JPEG or PNG, max 3 MB)</label>
+                <input id="bcFileInput" type="file" accept="image/jpeg,image/png" capture="environment" class="input-control" />
+                <div id="bcFileStatus" class="helper-note">No photo selected yet.</div>
+              </div>
+
+              <div id="bcPreviewBox" style="display:none;margin-bottom:14px;">
+                <img id="bcPreviewImg" alt="Uploaded worksheet preview" style="max-width:280px;max-height:220px;border-radius:14px;border:2px solid #cbd5e1;display:block;" />
+                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+                  <button type="button" id="bcReplacePhotoBtn" class="secondary-btn">Replace Photo</button>
+                  <button type="button" id="bcScanBtn" class="primary-btn btn-green">Scan Worksheet! ⚡</button>
+                </div>
+              </div>
+
+              <div id="bcTranscribedBox" style="display:none;margin-top:14px;">
+                <label for="bcReviewText" class="field-label">Extracted text (review and edit before checking)</label>
+                <textarea id="bcReviewText" class="textarea-control"></textarea>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+                  <button type="button" id="bcUseScannedBtn" class="primary-btn btn-blue">Check My Writing</button>
+                  <button type="button" id="bcRetakeBtn" class="secondary-btn">Retake Photo</button>
+                  <button type="button" id="bcSwitchTypeBtn" class="secondary-btn">Type My Work</button>
+                </div>
+              </div>
+            </div>
+
+            <div id="bcStatus" class="status-banner status-info" role="status">
+              Ready to check your writing.
+            </div>
+
+            <div id="bcFeedbackMount"></div>
+          </section>
+        `;
+
+        const modeTypeBtn = document.getElementById("bcModeTypeBtn");
+        const modeScanBtn = document.getElementById("bcModeScanBtn");
+        const typePanel = document.getElementById("bcTypePanel");
+        const scanPanel = document.getElementById("bcScanPanel");
+        const textArea = document.getElementById("bcTextArea");
+        const loadDemoBtn = document.getElementById("bcLoadDemoBtn");
+        const checkBtn = document.getElementById("bcCheckBtn");
+        const fileInput = document.getElementById("bcFileInput");
+        const fileStatus = document.getElementById("bcFileStatus");
+        const previewBox = document.getElementById("bcPreviewBox");
+        const previewImg = document.getElementById("bcPreviewImg");
+        const replacePhotoBtn = document.getElementById("bcReplacePhotoBtn");
+        const scanBtn = document.getElementById("bcScanBtn");
+        const transcribedBox = document.getElementById("bcTranscribedBox");
+        const reviewText = document.getElementById("bcReviewText");
+        const useScannedBtn = document.getElementById("bcUseScannedBtn");
+        const retakeBtn = document.getElementById("bcRetakeBtn");
+        const switchTypeBtn = document.getElementById("bcSwitchTypeBtn");
+        const statusEl = document.getElementById("bcStatus");
+        const feedbackMount = document.getElementById("bcFeedbackMount");
+
+        function switchMode(nextMode) {
+          mode = nextMode;
+          const isType = mode === "type";
+          typePanel.style.display = isType ? "block" : "none";
+          scanPanel.style.display = isType ? "none" : "block";
+          modeTypeBtn.className = isType ? "primary-btn btn-blue" : "secondary-btn";
+          modeScanBtn.className = !isType ? "primary-btn btn-blue" : "secondary-btn";
+          modeTypeBtn.setAttribute("aria-selected", String(isType));
+          modeScanBtn.setAttribute("aria-selected", String(!isType));
+        }
+
+        modeTypeBtn.addEventListener("click", () => switchMode("type"));
+        modeScanBtn.addEventListener("click", () => switchMode("scan"));
+        loadDemoBtn.addEventListener("click", () => {
+          textArea.value = slideDemoText;
+          setStatus(statusEl, "Loaded the slide example into Type My Work.", "info");
+        });
+
+        function resetScannerState(msg, type = "info") {
+          scannerFile = null;
+          if (scannerPreviewUrl) {
+            URL.revokeObjectURL(scannerPreviewUrl);
+            scannerPreviewUrl = "";
+          }
+          fileInput.value = "";
+          previewBox.style.display = "none";
+          transcribedBox.style.display = "none";
+          fileStatus.textContent = "No photo selected yet.";
+          if (msg) setStatus(statusEl, msg, type);
+        }
+
+        fileInput.addEventListener("change", () => {
+          const file = fileInput.files && fileInput.files[0];
+          if (!file) {
+            resetScannerState();
+            return;
+          }
+          if (!["image/jpeg", "image/png"].includes(file.type)) {
+            resetScannerState("Unsupported file type. Please choose a JPEG or PNG image.", "error");
+            return;
+          }
+          if (file.size > CONFIG.scannerMaxBytes) {
+            resetScannerState("That file is too large (max 3 MB). Please choose a smaller JPEG or PNG photo.", "error");
+            return;
+          }
+
+          scannerFile = file;
+          if (scannerPreviewUrl) URL.revokeObjectURL(scannerPreviewUrl);
+          scannerPreviewUrl = URL.createObjectURL(file);
+          previewImg.src = scannerPreviewUrl;
+          previewBox.style.display = "block";
+          transcribedBox.style.display = "none";
+          fileStatus.textContent = `Selected: ${file.name} (${Math.round(file.size / 1024)} KB)`;
+          setStatus(statusEl, "Photo ready. Press Scan Worksheet! to read the text.", "info");
+        });
+
+        replacePhotoBtn.addEventListener("click", () => fileInput.click());
+        retakeBtn.addEventListener("click", () => resetScannerState("Select or take a new photo.", "info"));
+        switchTypeBtn.addEventListener("click", () => {
+          if (reviewText.value.trim()) textArea.value = reviewText.value.trim();
+          switchMode("type");
+        });
+
+        scanBtn.addEventListener("click", async () => {
+          if (!scannerFile) {
+            setStatus(statusEl, "Choose a JPEG or PNG image first.", "warn");
+            return;
+          }
+          scanBtn.disabled = true;
+          setStatus(statusEl, "Scanning worksheet…", "info");
+
+          try {
+            if (liveAiAvailable) {
+              const reader = new FileReader();
+              const base64Data = await new Promise((resolve, reject) => {
+                reader.onload = () => resolve(String(reader.result).split(",")[1] || "");
+                reader.onerror = () => reject(new Error("Could not read image file."));
+                reader.readAsDataURL(scannerFile);
+              });
+              const resp = await fetch(`${CONFIG.serverApiBase}/api/scanner/transcribe`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ mimeType: scannerFile.type, base64Data })
+              });
+              if (!resp.ok) throw new Error("Scan failed on server.");
+              const data = await resp.json();
+              reviewText.value = data.text || "";
+              transcribedBox.style.display = "block";
+              setStatus(statusEl, "Scan finished. Check the extracted text below before running Buddy Checker.", "ok");
+            } else {
+              reviewText.value = slideDemoText;
+              transcribedBox.style.display = "block";
+              setStatus(statusEl, "Demo scan loaded sample worksheet text. Edit it if needed, then click Check My Writing.", "info");
+            }
+          } catch (err) {
+            transcribedBox.style.display = "none";
+            setStatus(statusEl, `Scanning failed (${err.message}). You can Retake Photo or switch to Type My Work.`, "error");
+          } finally {
+            scanBtn.disabled = false;
+          }
+        });
+
+        function analyzeWriting(passage) {
+          const lower = passage.toLowerCase();
+          const issues = [];
+
+          CHECKER_RULES.forEach((rule) => {
+            if (lower.includes(rule.incorrect.toLowerCase())) {
+              issues.push({
+                category: rule.category,
+                excerpt: rule.incorrect,
+                wrongHighlight: rule.wrongHighlight,
+                hint: rule.hint,
+                correction: rule.correct,
+                rightHighlight: rule.rightHighlight,
+                isStyleSuggestion: false
+              });
+            }
+          });
+
+          const hasGrandmotherHouse = /\bgrandmother house\b/i.test(passage) && !/\bgrandmother['’]s house\b/i.test(passage);
+          const hasLastWeekendGo = /\blast weekend\b/i.test(passage) && /\bi go\b/i.test(passage);
+          const hasWeBringPast = (/\blast weekend\b/i.test(passage) || hasLastWeekendGo) && /\bwe bring\b/i.test(passage);
+
+          if (hasLastWeekendGo && !issues.some((i) => i.wrongHighlight.toLowerCase() === "go")) {
+            issues.push({
+              category: "Tense Selection / Irregular Past",
+              excerpt: "Last weekend, I go to my grandmother house",
+              wrongHighlight: "go",
+              hint: "The action happened “last weekend” (in the past). Which past form of “go” fits here?",
+              correction: "Last weekend, I went to my grandmother’s house",
+              rightHighlight: "went",
+              isStyleSuggestion: false
+            });
+          }
+
+          if (hasGrandmotherHouse && !issues.some((i) => i.wrongHighlight.toLowerCase().includes("grandmother"))) {
+            issues.push({
+              category: "Possessive Apostrophe",
+              excerpt: "grandmother house",
+              wrongHighlight: "grandmother house",
+              hint: "Whose house is it? Add an apostrophe + s to show possession.",
+              correction: "grandmother’s house",
+              rightHighlight: "grandmother’s",
+              isStyleSuggestion: false
+            });
+          }
+
+          if (hasWeBringPast && !issues.some((i) => i.wrongHighlight.toLowerCase() === "bring")) {
+            issues.push({
+              category: "Irregular Past-Tense Formation",
+              excerpt: "We bring some food.",
+              wrongHighlight: "bring",
+              hint: "This part is still in the same past event. What is the past form of “bring”?",
+              correction: "We brought some food.",
+              rightHighlight: "brought",
+              isStyleSuggestion: false
+            });
+          }
+
+          return issues;
+        }
+
+        function runCheckerOnText(rawPassage) {
+          const trimmed = rawPassage.trim();
+          feedbackMount.innerHTML = "";
+
+          if (!trimmed) {
+            setStatus(statusEl, "Type or paste some writing first before checking.", "warn");
+            textArea.focus();
+            return;
+          }
+
+          const issues = analyzeWriting(trimmed);
+          const confirmedIssues = issues.filter((item) => !item.isStyleSuggestion);
+          const score = Math.max(0, 5 - confirmedIssues.length);
+          const stars = "★".repeat(score) + "☆".repeat(5 - score);
+
+          if (confirmedIssues.length === 0) {
+            feedbackMount.innerHTML = `
+              <div class="buddy-bubble-wrap">
+                <div class="buddy-avatar" aria-hidden="true">🌟</div>
+                <div class="buddy-bubble">
+                  <div class="buddy-bubble-title">Buddy Score: ${stars} (${score}/5)</div>
+                  <p style="margin:6px 0 0;font-weight:700;color:#166534;">Great job! No grammar issues spotted in your writing.</p>
+                  <div style="margin-top:10px;padding:10px 12px;border-radius:12px;background:#f8fafc;border:1px solid #e2e8f0;">
+                    <strong>Your text:</strong> ${escapeHtml(trimmed)}
+                  </div>
+                </div>
+              </div>
+            `;
+            setStatus(statusEl, `Buddy Score: ${score}/5. No issues found!`, "ok");
+            return;
+          }
+
+          const cardsHtml = confirmedIssues.map((iss, idx) => {
+            const wrongHtml = highlightPhrase(iss.excerpt, iss.wrongHighlight, "wrong-word");
+            const rightHtml = highlightPhrase(iss.correction, iss.rightHighlight, "right-word");
+            return `
+              <div class="issue-card-wrong">
+                <div style="font-size:0.82rem;font-weight:800;color:#991b1b;text-transform:uppercase;">
+                  Issue ${idx + 1} • ${escapeHtml(iss.category)}
+                </div>
+                <div style="margin-top:6px;font-size:1.02rem;">
+                  <strong>Original excerpt:</strong> ${wrongHtml}
+                </div>
+                <p style="margin:8px 0 0;font-weight:600;color:#1e293b;">
+                  💡 <strong>Buddy Hint:</strong> ${escapeHtml(iss.hint)}
+                </p>
+                <div style="margin-top:10px;">
+                  <button type="button" class="secondary-btn bc-reveal-corr-btn" data-target="corr-${idx}">
+                    Show Buddy’s Correction
+                  </button>
+                  <div id="corr-${idx}" class="issue-card-right" style="display:none;">
+                    <strong>Corrected:</strong> ${rightHtml}
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join("");
+
+          feedbackMount.innerHTML = `
+            <div class="buddy-bubble-wrap">
+              <div class="buddy-avatar" aria-hidden="true">🧐</div>
+              <div class="buddy-bubble">
+                <div class="buddy-bubble-title">Buddy Score: ${stars} (${score}/5)</div>
+                <p style="margin:4px 0 10px;font-size:0.94rem;color:var(--ink-muted);">
+                  Started at 5 and adjusted by -1 for ${confirmedIssues.length} spotted issue${confirmedIssues.length === 1 ? "" : "s"}. Read each hint, try fixing your text, and check again!
+                </p>
+                ${cardsHtml}
+              </div>
+            </div>
+          `;
+
+          feedbackMount.querySelectorAll(".bc-reveal-corr-btn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              const targetId = btn.getAttribute("data-target");
+              const box = document.getElementById(targetId);
+              if (box) {
+                const isOpen = box.style.display === "block";
+                box.style.display = isOpen ? "none" : "block";
+                btn.textContent = isOpen ? "Show Buddy’s Correction" : "Hide Buddy’s Correction";
+              }
+            });
+          });
+
+          setStatus(statusEl, `Buddy Score: ${score}/5 (${confirmedIssues.length} issue${confirmedIssues.length === 1 ? "" : "s"} to check).`, "warn");
+        }
+
+        checkBtn.addEventListener("click", () => runCheckerOnText(textArea.value));
+        useScannedBtn.addEventListener("click", () => {
+          textArea.value = reviewText.value;
+          switchMode("type");
+          runCheckerOnText(reviewText.value);
+        });
+      }
+
+      // BURGER MADNESS
+      function renderBurgerMadnessView(mount) {
+        let gold = 0;
+        let health = CONFIG.burgerStartHealth;
+        let unlockedLevel = 1;
+        let currentLevel = 1;
+        let ticketIndex = 0;
+        let levelCorrectCount = 0;
+        let answeredCurrent = false;
+        let timedMode = false;
+        let secondsLeft = CONFIG.burgerSpeedSeconds;
+        let timerInterval = null;
+
+        function stopTimer() {
+          if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+          }
+        }
+
+        function getChefTier(g) {
+          if (g >= 180) return "Grand Master Chef";
+          if (g >= 100) return "Head Grill Chef";
+          if (g >= 40) return "Sous Chef";
+          return "Apprentice Cook";
+        }
+
+        function startTicketTimer() {
+          stopTimer();
+          if (currentLevel !== 4 || !timedMode || answeredCurrent || health <= 0) return;
+          secondsLeft = CONFIG.burgerSpeedSeconds;
+          updateTimerLabel();
+          timerInterval = setInterval(() => {
+            if (answeredCurrent || health <= 0) {
+              stopTimer();
+              return;
+            }
+            secondsLeft -= 1;
+            updateTimerLabel();
+            if (secondsLeft <= 0) {
+              stopTimer();
+              handleDecision(null, true);
+            }
+          }, 1000);
+        }
+
+        function updateTimerLabel() {
+          const el = document.getElementById("bmTimerBadge");
+          if (el) {
+            el.style.display = (currentLevel === 4 && timedMode) ? "inline-flex" : "none";
+            el.textContent = `⏱️ ${Math.max(0, secondsLeft)}s`;
+          }
+        }
+
+        function renderGame() {
+          const levelData = BURGER_LEVELS[currentLevel] || BURGER_LEVELS[1];
+          const tickets = levelData.tickets || [];
+          const isLevelDone = ticketIndex >= tickets.length;
+          const isGameOver = health <= 0;
+          const isGrandComplete = currentLevel === 5 && isLevelDone && !isGameOver;
+
+          mount.innerHTML = `
+            <section class="kitchen-shell" aria-labelledby="bmHeading">
+              <div class="kitchen-hud">
+                <div>
+                  <h2 id="bmHeading" style="margin:0;font-size:1.5rem;">🍔 Burger Madness</h2>
+                  <div style="font-size:0.9rem;color:#92400e;font-weight:700;">Chef Tier: ${escapeHtml(getChefTier(gold))}</div>
+                </div>
+                <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                  <span class="arcade-hud-badge" style="background:#fef3c7;color:#92400e;border-color:#f59e0b;">🪙 Gold: ${gold}</span>
+                  <span class="arcade-hud-badge" style="background:#fee2e2;color:#991b1b;border-color:#f87171;">❤️ Health: ${health}</span>
+                  <span id="bmTimerBadge" class="arcade-hud-badge" style="display:none;background:#e0f2fe;color:#0369a1;border-color:#38bdf8;">⏱️ ${secondsLeft}s</span>
+                  <button type="button" id="bmRestartBtn" class="secondary-btn">🔄 Restart Run</button>
+                </div>
+              </div>
+
+              <div class="kitchen-grid">
+                <aside class="kitchen-map" aria-label="Kitchen Map Road">
+                  <h3 style="margin:0 0 10px;color:#0369a1;">🗺️ Kitchen Map Road</h3>
+                  ${[1, 2, 3, 4, 5].map((lvl) => {
+                    const locked = lvl > unlockedLevel;
+                    const active = lvl === currentLevel;
+                    const label = BURGER_LEVELS[lvl] ? BURGER_LEVELS[lvl].title : `Level ${lvl}`;
+                    return `
+                      <button type="button" class="level-pill-btn ${active ? "active" : ""}" data-lvl="${lvl}" ${locked ? "disabled" : ""}>
+                        ${locked ? "🔒 " : (lvl < unlockedLevel ? "✅ " : "🍳 ")}${escapeHtml(label)}
+                      </button>
+                    `;
+                  }).join("")}
+
+                  <div style="margin-top:12px;padding-top:10px;border-top:1px solid #93c5fd;font-size:0.86rem;color:#0c4a6e;">
+                    <strong>Rules:</strong><br/>
+                    • <strong>Serve Order</strong> = verb is correct.<br/>
+                    • <strong>Fix Recipe</strong> = verb needs changing.<br/>
+                    • Correct = +${CONFIG.burgerCorrectGold} gold; Wrong = -1 health.
+                  </div>
+                </aside>
+
+                <div class="order-station">
+                  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+                    <span style="font-weight:800;color:#92400e;">${escapeHtml(levelData.title)}</span>
+                    <span style="font-size:0.9rem;font-weight:700;color:#475569;">
+                      ${isLevelDone ? "Level Complete" : `Ticket ${ticketIndex + 1} / ${tickets.length}`}
+                    </span>
+                  </div>
+                  <p style="margin:4px 0 10px;font-size:0.94rem;color:#475569;">${escapeHtml(levelData.subtitle)}</p>
+
+                  ${currentLevel === 4 ? `
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;">
+                      <button type="button" id="bmUntimedBtn" class="${!timedMode ? "primary-btn btn-blue" : "secondary-btn"}">Untimed</button>
+                      <button type="button" id="bmTimedBtn" class="${timedMode ? "primary-btn btn-blue" : "secondary-btn"}">Timed (${CONFIG.burgerSpeedSeconds}s)</button>
+                    </div>
+                  ` : ""}
+
+                  <div id="bmOrderBody"></div>
+                </div>
+              </div>
+            </section>
+          `;
+
+          const orderBody = document.getElementById("bmOrderBody");
+
+          if (isGameOver) {
+            stopTimer();
+            orderBody.innerHTML = `
+              <div class="buddy-bubble" style="margin-top:14px;">
+                <div class="buddy-bubble-title">Out of Health! 🍳</div>
+                <p>You finished with <strong>${gold} gold</strong> as an <strong>${escapeHtml(getChefTier(gold))}</strong>.</p>
+                <button type="button" id="bmTryAgainBtn" class="primary-btn btn-green">Start a Fresh Run</button>
+              </div>
+            `;
+            document.getElementById("bmTryAgainBtn").addEventListener("click", resetFullRun);
+          } else if (isGrandComplete) {
+            stopTimer();
+            orderBody.innerHTML = `
+              <div class="buddy-bubble" style="margin-top:14px;">
+                <div class="buddy-bubble-title">🏆 Grand Master Banquet Complete!</div>
+                <p>Amazing work! Final Gold: <strong>${gold}</strong> • Chef Tier: <strong>${escapeHtml(getChefTier(gold))}</strong>.</p>
+                <button type="button" id="bmPlayAgainBanquetBtn" class="primary-btn btn-green">Play Again</button>
+              </div>
+            `;
+            document.getElementById("bmPlayAgainBanquetBtn").addEventListener("click", resetFullRun);
+          } else if (isLevelDone) {
+            stopTimer();
+            const canAdvance = currentLevel < 5;
+            if (canAdvance && unlockedLevel < currentLevel + 1) {
+              unlockedLevel = currentLevel + 1;
+            }
+            orderBody.innerHTML = `
+              <div class="buddy-bubble" style="margin-top:14px;">
+                <div class="buddy-bubble-title">${escapeHtml(levelData.title)} Finished!</div>
+                <p>Correct decisions this round: <strong>${levelCorrectCount} / ${tickets.length}</strong> • Current Gold: <strong>${gold}</strong>.</p>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+                  ${canAdvance ? `<button type="button" id="bmNextLevelBtn" class="primary-btn btn-green">Continue to Level ${currentLevel + 1} →</button>` : ""}
+                  <button type="button" id="bmReplayLevelBtn" class="secondary-btn">Replay This Level</button>
+                </div>
+              </div>
+            `;
+            const nextLvlBtn = document.getElementById("bmNextLevelBtn");
+            if (nextLvlBtn) {
+              nextLvlBtn.addEventListener("click", () => {
+                currentLevel += 1;
+                ticketIndex = 0;
+                levelCorrectCount = 0;
+                answeredCurrent = false;
+                renderGame();
+              });
+            }
+            document.getElementById("bmReplayLevelBtn").addEventListener("click", () => {
+              ticketIndex = 0;
+              levelCorrectCount = 0;
+              answeredCurrent = false;
+              renderGame();
+            });
+          } else {
+            const ticket = tickets[ticketIndex];
+            answeredCurrent = false;
+            orderBody.innerHTML = `
+              <div class="ticket-box">
+                <div style="font-size:0.82rem;text-transform:uppercase;color:#b45309;margin-bottom:6px;">🍔 Order Ticket</div>
+                <div>“${escapeHtml(ticket.sentence)}”</div>
+              </div>
+
+              <div class="choice-row">
+                <button type="button" id="bmServeBtn" class="primary-btn btn-green">✅ Serve Order</button>
+                <button type="button" id="bmFixBtn" class="primary-btn btn-red">🔧 Fix Recipe</button>
+              </div>
+
+              <div id="bmFeedbackMount"></div>
+            `;
+
+            document.getElementById("bmServeBtn").addEventListener("click", () => handleDecision("serve", false));
+            document.getElementById("bmFixBtn").addEventListener("click", () => handleDecision("fix", false));
+            startTicketTimer();
+          }
+
+          document.getElementById("bmRestartBtn").addEventListener("click", resetFullRun);
+          mount.querySelectorAll(".level-pill-btn:not(:disabled)").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              stopTimer();
+              currentLevel = Number(btn.getAttribute("data-lvl"));
+              ticketIndex = 0;
+              levelCorrectCount = 0;
+              answeredCurrent = false;
+              renderGame();
+            });
+          });
+
+          const untimedBtn = document.getElementById("bmUntimedBtn");
+          const timedBtn = document.getElementById("bmTimedBtn");
+          if (untimedBtn && timedBtn) {
+            untimedBtn.addEventListener("click", () => {
+              timedMode = false;
+              stopTimer();
+              renderGame();
+            });
+            timedBtn.addEventListener("click", () => {
+              timedMode = true;
+              renderGame();
+            });
+          }
+        }
+
+        function handleDecision(choice, timedOut) {
+          if (answeredCurrent) return;
+          answeredCurrent = true;
+          stopTimer();
+
+          const serveBtn = document.getElementById("bmServeBtn");
+          const fixBtn = document.getElementById("bmFixBtn");
+          if (serveBtn) serveBtn.disabled = true;
+          if (fixBtn) fixBtn.disabled = true;
+
+          const levelData = BURGER_LEVELS[currentLevel];
+          const ticket = levelData.tickets[ticketIndex];
+          const playerSaidCorrect = choice === "serve";
+          const isMatch = !timedOut && (playerSaidCorrect === Boolean(ticket.isCorrect));
+
+          if (isMatch) {
+            gold += CONFIG.burgerCorrectGold;
+            levelCorrectCount += 1;
+          } else {
+            health = Math.max(0, health - 1);
+          }
+
+          const fixLine = !ticket.isCorrect
+            ? `<div style="margin-top:6px;"><strong>Verb change:</strong> <span class="wrong-word">${escapeHtml(ticket.targetVerb)}</span> → <span class="right-word">${escapeHtml(ticket.expectedForm)}</span></div>`
+            : `<div style="margin-top:6px;"><strong>Verb check:</strong> <span class="right-word">${escapeHtml(ticket.targetVerb)}</span> is already right for this sentence.</div>`;
+
+          const fbMount = document.getElementById("bmFeedbackMount");
+          if (fbMount) {
+            fbMount.innerHTML = `
+              <div class="buddy-bubble-wrap">
+                <div class="buddy-avatar" aria-hidden="true">${isMatch ? "🎉" : "🍳"}</div>
+                <div class="buddy-bubble">
+                  <div class="buddy-bubble-title">${timedOut ? "Time's Up!" : (isMatch ? "Nice Order!" : "Oops — Check the Verb!")}</div>
+                  ${fixLine}
+                  <p style="margin:8px 0 0;color:#334155;">${escapeHtml(ticket.explanation)}</p>
+                  <div style="margin-top:12px;">
+                    <button type="button" id="bmNextTicketBtn" class="primary-btn btn-blue">Next Ticket →</button>
+                  </div>
+                </div>
+              </div>
+            `;
+            document.getElementById("bmNextTicketBtn").addEventListener("click", () => {
+              ticketIndex += 1;
+              renderGame();
+            });
+          }
+
+          const hudBadges = mount.querySelectorAll(".kitchen-hud .arcade-hud-badge");
+          if (hudBadges[0]) hudBadges[0].textContent = `🪙 Gold: ${gold}`;
+          if (hudBadges[1]) hudBadges[1].textContent = `❤️ Health: ${health}`;
+          const tierEl = mount.querySelector(".kitchen-hud > div > div");
+          if (tierEl) tierEl.textContent = `Chef Tier: ${getChefTier(gold)}`;
+          announce(isMatch ? `Correct! +${CONFIG.burgerCorrectGold} gold.` : `Health is now ${health}. ${ticket.explanation}`);
+        }
+
+        function resetFullRun() {
+          stopTimer();
+          gold = 0;
+          health = CONFIG.burgerStartHealth;
+          unlockedLevel = 1;
+          currentLevel = 1;
+          ticketIndex = 0;
+          levelCorrectCount = 0;
+          answeredCurrent = false;
+          timedMode = false;
+          renderGame();
+        }
+
+        renderGame();
+        activeRouteCleanup = () => stopTimer();
+      }
+
+      // TENSE SHOWDOWN
+      function renderTenseShowdownView(mount) {
+        function buildRoundQuestions() {
+          const presentPool = SHOWDOWN_BANK.filter((q) => q.tense === "present");
+          const pastPool = SHOWDOWN_BANK.filter((q) => q.tense === "past");
+          const pickThree = (arr) => [...arr].sort(() => Math.random() - 0.5).slice(0, 3);
+          return [...pickThree(presentPool), ...pickThree(pastPool)].sort(() => Math.random() - 0.5);
+        }
+
+        let questions = buildRoundQuestions();
+        let qIndex = 0;
+        let score = 0;
+        let roundStarted = false;
+        let roundFinished = false;
+        let answeredThisQ = false;
+
+        let cameraActive = false;
+        let videoStream = null;
+        let rafId = null;
+        let neutralRollDeg = null;
+        let gestureLockedUntilNeutral = false;
+        let activeTiltDir = null;
+        let tiltHoldStartMs = 0;
+        let tiltProgressPct = 0;
+
+        function stopCamera() {
+          cameraActive = false;
+          activeTiltDir = null;
+          tiltHoldStartMs = 0;
+          tiltProgressPct = 0;
+          if (rafId) {
+            cancelAnimationFrame(rafId);
+            rafId = null;
+          }
+          if (videoStream) {
+            videoStream.getTracks().forEach((t) => t.stop());
+            videoStream = null;
+          }
+        }
+
+        function cancelInProgressGesture() {
+          activeTiltDir = null;
+          tiltHoldStartMs = 0;
+          tiltProgressPct = 0;
+          const bar = document.getElementById("tsTiltBar");
+          if (bar) bar.style.width = "0%";
+        }
+
+        function submitAnswer(chosenTense) {
+          if (!roundStarted || roundFinished || answeredThisQ) return;
+          answeredThisQ = true;
+          cancelInProgressGesture();
+          gestureLockedUntilNeutral = true;
+
+          const currentQ = questions[qIndex];
+          const isCorrect = chosenTense === currentQ.tense;
+          if (isCorrect) score += 1;
+
+          const leftBtn = document.getElementById("tsLeftBtn");
+          const rightBtn = document.getElementById("tsRightBtn");
+          if (leftBtn) leftBtn.disabled = true;
+          if (rightBtn) rightBtn.disabled = true;
+
+          const fbEl = document.getElementById("tsFeedbackBox");
+          if (fbEl) {
+            const tenseLabel = currentQ.tense === "present" ? "Simple Present" : "Simple Past";
+            fbEl.innerHTML = `
+              <div class="buddy-bubble" style="background:#0f172a;border-color:#22d3ee;color:#f8fafc;margin-top:12px;">
+                <div style="font-weight:800;color:${isCorrect ? "#4ade80" : "#fbbf24"};">
+                  ${isCorrect ? "✅ Correct! +1 point" : `❌ Not quite — Correct tense: ${tenseLabel}`}
+                </div>
+                <p style="margin:6px 0 0;font-size:0.95rem;color:#e2e8f0;">${escapeHtml(currentQ.reason)}</p>
+                <div style="margin-top:12px;">
+                  <button type="button" id="tsNextBtn" class="primary-btn btn-green">
+                    ${qIndex + 1 < CONFIG.showdownRoundSize ? "Next Question →" : "See Final Score →"}
+                  </button>
+                </div>
+              </div>
+            `;
+            document.getElementById("tsNextBtn").addEventListener("click", () => {
+              if (qIndex + 1 < CONFIG.showdownRoundSize) {
+                qIndex += 1;
+                answeredThisQ = false;
+                gestureLockedUntilNeutral = false;
+                renderShowdown();
+              } else {
+                roundFinished = true;
+                stopCamera();
+                renderShowdown();
+              }
+            });
+          }
+
+          const scoreBadge = document.getElementById("tsScoreBadge");
+          if (scoreBadge) scoreBadge.textContent = `Score: ${score}`;
+          announce(isCorrect ? `Correct. Score ${score}.` : `Answer recorded. ${currentQ.reason}`);
+        }
+
+        function processHeadTiltAngle(rawAngleDeg) {
+          if (!cameraActive || !roundStarted || roundFinished || answeredThisQ) return;
+          if (neutralRollDeg === null) neutralRollDeg = rawAngleDeg;
+          const delta = rawAngleDeg - neutralRollDeg;
+
+          const indicator = document.getElementById("tsTiltIndicator");
+          const bar = document.getElementById("tsTiltBar");
+
+          if (Math.abs(delta) < 6) {
+            gestureLockedUntilNeutral = false;
+            activeTiltDir = null;
+            tiltHoldStartMs = 0;
+            tiltProgressPct = 0;
+            if (indicator) indicator.textContent = "Head Status: Centred (Neutral)";
+            if (bar) bar.style.width = "0%";
+            return;
+          }
+
+          if (gestureLockedUntilNeutral) {
+            if (indicator) indicator.textContent = "Head Status: Return to centre for next question";
+            return;
+          }
+
+          const dir = delta <= -CONFIG.tiltThresholdDeg ? "left" : (delta >= CONFIG.tiltThresholdDeg ? "right" : null);
+          if (!dir) {
+            activeTiltDir = null;
+            tiltHoldStartMs = 0;
+            tiltProgressPct = 0;
+            if (indicator) indicator.textContent = `Head Status: Tilting (${delta.toFixed(1)}°) — hold ${CONFIG.tiltThresholdDeg}°+`;
+            if (bar) bar.style.width = "0%";
+            return;
+          }
+
+          const now = performance.now();
+          if (activeTiltDir !== dir) {
+            activeTiltDir = dir;
+            tiltHoldStartMs = now;
+          }
+          const elapsed = now - tiltHoldStartMs;
+          tiltProgressPct = Math.min(100, (elapsed / CONFIG.tiltHoldMs) * 100);
+          if (bar) bar.style.width = `${tiltProgressPct}%`;
+          if (indicator) {
+            indicator.textContent = `Holding ${dir === "left" ? "Simple Present (Left)" : "Simple Past (Right)"}… ${Math.round(tiltProgressPct)}%`;
+          }
+
+          if (elapsed >= CONFIG.tiltHoldMs) {
+            submitAnswer(dir === "left" ? "present" : "past");
+          }
+        }
+
+        async function enableCameraMode() {
+          const camStatus = document.getElementById("tsCamStatus");
+          if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+            if (camStatus) camStatus.textContent = "Camera is not available on this device. You can still play using buttons or arrow keys.";
+            return;
+          }
+
+          try {
+            videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
+            cameraActive = true;
+            neutralRollDeg = null;
+            renderShowdown();
+            const vid = document.getElementById("tsVideoPreview");
+            if (vid) {
+              vid.srcObject = videoStream;
+              await vid.play().catch(() => {});
+            }
+
+            const FaceDetectorCtor = window.FaceDetector || null;
+            const detector = FaceDetectorCtor ? new FaceDetectorCtor({ fastMode: true }) : null;
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d", { willReadFrequently: true });
+            let prevFrame = null;
+
+            const tick = async () => {
+              if (!cameraActive || !vid) return;
+              if (detector && vid.readyState >= 2) {
+                try {
+                  const faces = await detector.detect(vid);
+                  if (faces.length === 1 && faces[0].landmarks) {
+                    const eyes = faces[0].landmarks.filter((l) => l.type === "eye");
+                    if (eyes.length >= 2 && eyes[0].locations?.[0] && eyes[1].locations?.[0]) {
+                      const p1 = eyes[0].locations[0];
+                      const p2 = eyes[1].locations[0];
+                      const angleDeg = (Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180) / Math.PI;
+                      processHeadTiltAngle(angleDeg);
+                    }
+                  } else if (faces.length > 1) {
+                    const ind = document.getElementById("tsTiltIndicator");
+                    if (ind) ind.textContent = "Head Status: Please keep only one face in view";
+                    cancelInProgressGesture();
+                  }
+                } catch (_) {}
+              } else if (ctx && vid.readyState >= 2) {
+                canvas.width = 160;
+                canvas.height = 120;
+                ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
+                const img = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+                if (prevFrame) {
+                  let leftDiff = 0;
+                  let rightDiff = 0;
+                  for (let i = 0; i < img.length; i += 16) {
+                    const px = (i / 4) % canvas.width;
+                    const diff = Math.abs(img[i] - prevFrame[i]);
+                    if (px < canvas.width / 2) leftDiff += diff;
+                    else rightDiff += diff;
+                  }
+                  const ratio = (rightDiff - leftDiff) / 25000;
+                  if (Math.abs(ratio) > 3) {
+                    processHeadTiltAngle(ratio * 4);
+                  } else {
+                    processHeadTiltAngle(neutralRollDeg ?? 0);
+                  }
+                }
+                prevFrame = new Uint8ClampedArray(img);
+              }
+              rafId = requestAnimationFrame(tick);
+            };
+            rafId = requestAnimationFrame(tick);
+          } catch (_) {
+            stopCamera();
+            renderShowdown();
+            const errStatus = document.getElementById("tsCamStatus");
+            if (errStatus) {
+              errStatus.textContent = "Camera permission was denied or unavailable. Use the on-screen buttons or Left/Right arrow keys to play.";
+            }
+          }
+        }
+
+        function handleKeyDown(e) {
+          if (!roundStarted || roundFinished || answeredThisQ) return;
+          if (e.repeat) return;
+          if (e.key === "ArrowLeft") {
+            e.preventDefault();
+            submitAnswer("present");
+          } else if (e.key === "ArrowRight") {
+            e.preventDefault();
+            submitAnswer("past");
+          }
+        }
+
+        document.addEventListener("keydown", handleKeyDown);
+
+        function renderShowdown() {
+          const qNumDisplay = Math.min(qIndex + 1, CONFIG.showdownRoundSize);
+          const curQ = questions[qIndex];
+
+          mount.innerHTML = `
+            <section class="arcade-shell" aria-labelledby="tsHeading">
+              <div class="arcade-top">
+                <h2 id="tsHeading" class="arcade-title">TENSE SHOWDOWN</h2>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                  <span class="arcade-hud-badge">Question ${qNumDisplay}/${CONFIG.showdownRoundSize}</span>
+                  <span id="tsScoreBadge" class="arcade-hud-badge">Score: ${score}</span>
+                </div>
+              </div>
+
+              <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+                ${!roundStarted ? `<button type="button" id="tsStartBtn" class="primary-btn btn-green">▶ Start Round</button>` : ""}
+                ${!cameraActive
+                  ? `<button type="button" id="tsCamOnBtn" class="secondary-btn" style="background:#10203d;color:#22d3ee;border-color:#22d3ee;">📷 Enable Camera</button>`
+                  : `<button type="button" id="tsCamOffBtn" class="secondary-btn" style="background:#3f1d1d;color:#fca5a5;border-color:#f87171;">⏹ Turn Off Camera</button>`
+                }
+                <button type="button" id="tsRecalBtn" class="secondary-btn" style="background:#10203d;color:#fde68a;border-color:#fbbf24;${cameraActive ? "" : "display:none;"}">🎯 Re-centre</button>
+              </div>
+
+              <div id="tsCamStatus" class="helper-note" style="color:#cbd5e1;margin-bottom:12px;">
+                ${cameraActive ? "Camera active locally in browser (no video uploaded or recorded)." : "Play with buttons, Left/Right arrow keys, or optional camera tilt."}
+              </div>
+
+              <div class="arcade-arena">
+                <button type="button" id="tsLeftBtn" class="arcade-side-btn" ${(!roundStarted || roundFinished || answeredThisQ) ? "disabled" : ""}>
+                  <span style="font-size:1.15rem;color:#22d3ee;">Simple Present</span>
+                  <span style="font-size:0.85rem;color:#fde68a;">${cameraActive ? "Tilt left (or click)" : "← Left / Click"}</span>
+                </button>
+
+                <div class="arcade-center">
+                  ${cameraActive ? `
+                    <div style="margin-bottom:10px;">
+                      <video id="tsVideoPreview" playsinline muted style="width:170px;height:128px;border-radius:12px;border:2px solid #22d3ee;transform:scaleX(-1);object-fit:cover;background:#020617;"></video>
+                      <div id="tsTiltIndicator" style="font-size:0.85rem;font-weight:700;color:#fde68a;margin-top:6px;">Head Status: Centred (Neutral)</div>
+                      <div class="tilt-meter-track" aria-hidden="true">
+                        <div id="tsTiltBar" class="tilt-meter-fill"></div>
+                      </div>
+                    </div>
+                  ` : ""}
+
+                  ${!roundStarted ? `
+                    <p style="margin:8px 0;color:#e2e8f0;line-height:1.5;">
+                      Decide if each sentence is <strong>Simple Present</strong> or <strong>Simple Past</strong> across 6 questions. Press <strong>Start Round</strong> to begin!
+                    </p>
+                  ` : (roundFinished ? `
+                    <div style="padding:12px 0;">
+                      <div style="font-size:1.5rem;font-weight:800;color:#fbbf24;">Final Score: ${score}/${CONFIG.showdownRoundSize}</div>
+                      <p style="color:#e2e8f0;margin:8px 0 14px;">${score >= 5 ? "Awesome showdown! Your tense spotting is sharp." : "Good round! Keep checking time clues and verb forms."}</p>
+                      <button type="button" id="tsPlayAgainBtn" class="primary-btn btn-green">↻ Play Again</button>
+                    </div>
+                  ` : `
+                    <div style="font-size:0.82rem;text-transform:uppercase;color:#22d3ee;font-weight:800;">Classify the target verb</div>
+                    <div class="arcade-sentence">
+                      “${highlightPhrase(curQ.sentence, curQ.targetVerb, "arcade-verb-pill")}”
+                    </div>
+                  `)}
+
+                  <div id="tsFeedbackBox"></div>
+                </div>
+
+                <button type="button" id="tsRightBtn" class="arcade-side-btn" ${(!roundStarted || roundFinished || answeredThisQ) ? "disabled" : ""}>
+                  <span style="font-size:1.15rem;color:#fbbf24;">Simple Past</span>
+                  <span style="font-size:0.85rem;color:#fde68a;">${cameraActive ? "Tilt right (or click)" : "Right → / Click"}</span>
+                </button>
+              </div>
+            </section>
+          `;
+
+          const startBtn = document.getElementById("tsStartBtn");
+          if (startBtn) {
+            startBtn.addEventListener("click", () => {
+              roundStarted = true;
+              roundFinished = false;
+              answeredThisQ = false;
+              gestureLockedUntilNeutral = false;
+              renderShowdown();
+              if (cameraActive && videoStream) {
+                const v = document.getElementById("tsVideoPreview");
+                if (v) { v.srcObject = videoStream; v.play().catch(() => {}); }
+              }
+            });
+          }
+
+          const camOnBtn = document.getElementById("tsCamOnBtn");
+          if (camOnBtn) camOnBtn.addEventListener("click", enableCameraMode);
+
+          const camOffBtn = document.getElementById("tsCamOffBtn");
+          if (camOffBtn) {
+            camOffBtn.addEventListener("click", () => {
+              stopCamera();
+              renderShowdown();
+            });
+          }
+
+          const recalBtn = document.getElementById("tsRecalBtn");
+          if (recalBtn) {
+            recalBtn.addEventListener("click", () => {
+              neutralRollDeg = null;
+              gestureLockedUntilNeutral = false;
+              cancelInProgressGesture();
+              const ind = document.getElementById("tsTiltIndicator");
+              if (ind) ind.textContent = "Head Status: Re-centred";
+            });
+          }
+
+          const leftBtn = document.getElementById("tsLeftBtn");
+          const rightBtn = document.getElementById("tsRightBtn");
+          if (leftBtn) leftBtn.addEventListener("click", () => submitAnswer("present"));
+          if (rightBtn) rightBtn.addEventListener("click", () => submitAnswer("past"));
+
+          const playAgainBtn = document.getElementById("tsPlayAgainBtn");
+          if (playAgainBtn) {
+            playAgainBtn.addEventListener("click", () => {
+              stopCamera();
+              questions = buildRoundQuestions();
+              qIndex = 0;
+              score = 0;
+              roundStarted = false;
+              roundFinished = false;
+              answeredThisQ = false;
+              gestureLockedUntilNeutral = false;
+              renderShowdown();
+            });
+          }
+        }
+
+        renderShowdown();
+
+        activeRouteCleanup = () => {
+          stopCamera();
+          document.removeEventListener("keydown", handleKeyDown);
+        };
+      }
+
+      // ROUTER
+      function renderRoute() {
+        if (typeof activeRouteCleanup === "function") {
+          activeRouteCleanup();
+          activeRouteCleanup = null;
+        }
+        const mount = document.getElementById("viewMount");
+        const hash = window.location.hash || "#/";
+
+        if (hash === "#/buddy-translate") {
+          renderBuddyTranslateView(mount);
+        } else if (hash === "#/dictionary") {
+          renderDictionaryView(mount);
+        } else if (hash === "#/tense-converter") {
+          renderTenseConverterView(mount);
+        } else if (hash === "#/buddy-checker") {
+          renderBuddyCheckerView(mount);
+        } else if (hash === "#/burger-madness") {
+          renderBurgerMadnessView(mount);
+        } else if (hash === "#/tense-showdown") {
+          renderTenseShowdownView(mount);
+        } else {
+          renderHomeView(mount);
+        }
+      }
+
+      window.addEventListener("hashchange", renderRoute);
+      window.addEventListener("beforeunload", () => {
+        if (typeof activeRouteCleanup === "function") activeRouteCleanup();
+      });
+
+      renderRoute();
+    })();
+  </script>
+</body>
+</html>
